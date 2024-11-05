@@ -32,6 +32,11 @@ dofile(vim.g.base46_cache .. "statusline")
 require "options"
 require "nvchad.autocmds"
 
+---@diagnostic disable-next-line: missing-fields
+require("notify").setup {
+  background_colour = "#000000FF",
+}
+
 vim.schedule(function()
   require "mappings"
 end)
