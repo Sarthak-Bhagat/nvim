@@ -4,8 +4,11 @@ return {
     event = "BufWritePre", -- uncomment for format on save
     opts = require "configs.conform",
   },
-
   -- {
+  {
+    "L3MON4D3/LuaSnip",
+    run = "make install_jsregexp",
+  },
   --   "neovim/nvim-lspconfig",
   --   config = function()
   --     require "configs.lspconfig"
@@ -43,6 +46,18 @@ return {
         progress = { enabled = true },
         hover = { enabled = false },
         signature = { enabled = false },
+        override = {
+          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+          ["vim.lsp.util.stylize_markdown"] = true,
+          ["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
+        },
+      },
+      presets = {
+        -- bottom_search = true, -- use a classic bottom cmdline for search
+        command_palette = false, -- position the cmdline and popupmenu together
+        long_message_to_split = true, -- long messages will be sent to a split
+        inc_rename = true, -- enables an input dialog for inc-rename.nvim
+        lsp_doc_border = false, -- add a border to hover docs and signature help
       },
     },
   },
@@ -241,14 +256,26 @@ return {
   {
     "IogaMaster/neocord",
     event = "VeryLazy",
-    config = {
-      main_image = "logo",
+    opts = {
+      -- main_image = "logo",
+      main_image = "language",
       logo = "https://0x0.st/H3Rh.png",
       show_time = true,
-      log_level = "debug",
-      workspace_text = function()
-        return "using NvChad rn"
-      end,
+      log_level = nil,
+      workspace_text = "📁 %s",
+      -- workspace_text = function(project_name, filename)
+      --   local name_only = filename:match "[^/\\]+$" or filename
+      --   local display = project_name or name_only
+      --
+      --   local prefix = "editing "
+      --   local prefix_len = 7 -- Length of "editing "
+      --
+      --   if prefix_len + #display + #name_only <= 25 then
+      --     return prefix .. display .. " " .. name_only
+      --   end
+      --
+      --   return prefix .. display
+      -- end,
     },
   },
 
@@ -329,7 +356,7 @@ return {
       "rshkarin/mason-nvim-lint",
       "neovim/nvim-lspconfig",
       "williamboman/mason.nvim",
-      "LittleEndianRoot/mason-conform",
+      -- "LittleEndianRoot/mason-conform",
     },
   },
 
@@ -348,26 +375,51 @@ return {
   {
     "folke/flash.nvim",
     event = "VeryLazy",
-    ---@type Flash.Config
     opts = {},
-  -- stylua: ignore
-  keys = {
-      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-      { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-      { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
-      { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-      { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+    keys = {
+      {
+        "s",
+        mode = { "n", "x", "o" },
+        function()
+          require("flash").jump()
+        end,
+        desc = "Flash",
+      },
+      {
+        "S",
+        mode = { "n", "x", "o" },
+        function()
+          require("flash").treesitter()
+        end,
+        desc = "Flash Treesitter",
+      },
+      {
+        "r",
+        mode = "o",
+        function()
+          require("flash").remote()
+        end,
+        desc = "Remote Flash",
+      },
+      {
+        "R",
+        mode = { "o", "x" },
+        function()
+          require("flash").treesitter_search()
+        end,
+        desc = "Treesitter Search",
+      },
+      {
+        "<c-s>",
+        mode = { "c" },
+        function()
+          require("flash").toggle()
+        end,
+        desc = "Toggle Flash Search",
+      },
     },
   },
 
-  -- {
-  --   "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-  --   event = "LspAttach",
-  --   config = function()
-  --     require("lsp_lines").setup()
-  --     vim.diagnostic.config { virtual_text = false }
-  --   end,
-  -- },
   {
     "rachartier/tiny-inline-diagnostic.nvim",
     event = "VeryLazy",
@@ -377,5 +429,27 @@ return {
     options = {
       show_source = true,
     },
+  },
+
+  {
+    "kiyoon/jupynium.nvim",
+    ft = "python",
+    build = "pip3 install --user .",
+    -- build = "conda run --no-capture-output -n jupynium pip install .",
+    -- enabled = vim.fn.isdirectory(vim.fn.expand "~/miniconda3/envs/jupynium"),
+    dependencies = {
+      "rcarriga/nvim-notify", -- optional
+      "stevearc/dressing.nvim", -- optional, UI for :JupyniumKernelSelect
+    },
+  },
+
+  { "nvzone/volt", lazy = true },
+  { "nvzone/menu", lazy = true },
+
+  {
+    "smjonas/inc-rename.nvim",
+    config = function()
+      require("inc_rename").setup()
+    end,
   },
 }

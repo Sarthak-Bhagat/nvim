@@ -15,4 +15,4 @@ require("mason-lspconfig").setup_handlers {
   -- end,
 }
 require("mason-nvim-lint").setup()
-require("mason-conform").setup()
+-- require("mason-conform").setup()

@@ -50,7 +50,6 @@ local mappings = {
     desc = "Buffers",
   },
   { "<leader>e", "<cmd>NvimTreeFocus<cr>", desc = "Explorer" },
-  { "<leader>k", "<cmd>KillKillKill<cr>", desc = "SheepGame" },
   { "<leader>w", "<cmd>w!<CR>", desc = "Save" },
   { "<leader>q", "<cmd>q!<CR>", desc = "Quit" },
   { "<leader>h", "<cmd>nohlsearch<CR>", desc = "No Highlight" },
@@ -126,6 +125,7 @@ local mappings = {
       desc = "Comment Block",
     },
   },
+  { "C-t", "lua require('menu').open('default')", desc = "Open Menu" },
 }
 which_key.setup(setup)
 which_key.add(mappings)
