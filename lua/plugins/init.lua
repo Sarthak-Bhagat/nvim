@@ -9,11 +9,6 @@ return {
     "L3MON4D3/LuaSnip",
     run = "make install_jsregexp",
   },
-  --   "neovim/nvim-lspconfig",
-  --   config = function()
-  --     require "configs.lspconfig"
-  --   end,
-  -- },
 
   {
     "nvchad/ui",
@@ -356,7 +351,6 @@ return {
       "rshkarin/mason-nvim-lint",
       "neovim/nvim-lspconfig",
       "williamboman/mason.nvim",
-      -- "LittleEndianRoot/mason-conform",
     },
   },
 
@@ -449,7 +443,7 @@ return {
   {
     "smjonas/inc-rename.nvim",
     config = function()
-      require("inc_rename").setup()
+      require("inc_rename").setup {}
     end,
   },
 }
