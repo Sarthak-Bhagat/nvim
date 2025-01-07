@@ -5,15 +5,6 @@ if not dap_status_ok then
   return
 end
 
-local dap_status_ok, _ = pcall(loadfile, "plugins/dap.nvim")
-
-if not dap_status_ok then
-  return
-end
-local dapui_status_ok, _ = pcall(loadfile, "plugins/dapui.nvim")
-if not dapui_status_ok then
-  return
-end
 -- dapui.setup()
 dapui.setup {
   icons = { expanded = "▾", collapsed = "▸" },

@@ -19,7 +19,7 @@ map(
 )
 map("n", "<leader>e", "<cmd>NvimTreeToggle<cr>", { desc = "Explorer" })
 map("n", "<leader>w", "<cmd>w!<CR>", { desc = "Save" })
-map("n", "<leader>q", "<cmd>q!<CR>", { desc = "Quit" })
+-- map("n", "<leader>q", "<cmd>q!<CR>", { desc = "Quit" })
 map("n", "<leader>h", "<cmd>nohlsearch<CR>", { desc = "No Highlight" })
 map("n", "<leader>ff", "<cmd>Telescope find_files<CR>", { desc = "Find files" })
 
@@ -65,6 +65,10 @@ map("n", "<leader>sr", "<cmd>Telescope oldfiles<cr>", { desc = "Open Recent File
 map("n", "<leader>sR", "<cmd>Telescope registers<cr>", { desc = "Registers" })
 map("n", "<leader>sk", "<cmd>Telescope keymaps<cr>", { desc = "Keymaps" })
 map("n", "<leader>sC", "<cmd>Telescope commands<cr>", { desc = "Commands" })
+-- map("n", "<leader>ss", "<cmd>IncRename<cr>", { desc = "Rename" })
+map("n", "<F2>", function()
+  return ":IncRename " .. vim.fn.expand("<cword>")
+end, { expr = true, desc = "Rename" })
 
 -- Run Mappings
 -- map("n", "<leader>r", nil, { group = "Run" })
@@ -104,6 +108,7 @@ map(
   ":lua vim.g.neovide_transparency = (vim.g.neovide_transparency == 0.75 and 1 or 0.75)<CR>",
   { desc = "Toggle transparency" }
 )
+map("n", "<leader>da", ":lua require('menu').open('default')<cr>", { desc = "Open Menu" })
 
 -- Visual Mode Comment Block
 map(
@@ -114,4 +119,3 @@ map(
 )
 
 -- Menu
-map("n", "C-t", "lua require('menu').open('default')", { desc = "Open Menu" })

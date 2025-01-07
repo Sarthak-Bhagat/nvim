@@ -4,11 +4,6 @@ return {
     event = "BufWritePre", -- uncomment for format on save
     opts = require "configs.conform",
   },
-  -- {
-  {
-    "L3MON4D3/LuaSnip",
-    run = "make install_jsregexp",
-  },
 
   {
     "nvchad/ui",
@@ -22,6 +17,14 @@ return {
     lazy = true,
     build = function()
       require("base46").load_all_highlights()
+    end,
+  },
+
+  {
+    "smjonas/inc-rename.nvim",
+    event="VeryLazy",
+    config = function()
+      require("inc_rename").setup {}
     end,
   },
 
@@ -440,10 +443,4 @@ return {
   { "nvzone/volt", lazy = true },
   { "nvzone/menu", lazy = true },
 
-  {
-    "smjonas/inc-rename.nvim",
-    config = function()
-      require("inc_rename").setup {}
-    end,
-  },
 }
