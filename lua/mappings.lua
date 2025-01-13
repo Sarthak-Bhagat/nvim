@@ -1,5 +1,12 @@
 require "nvchad.mappings"
+local telescope = require "telescope.builtin"
 
+local function find_recent_files_in_cwd()
+  telescope.oldfiles {
+    cwd_only = true, -- Restrict to the current directory
+    cwd = vim.fn.getcwd(), -- Set the current working directory
+  }
+end
 -- add yours here
 local map = vim.keymap.set
 
@@ -22,6 +29,12 @@ map("n", "<leader>w", "<cmd>w!<CR>", { desc = "Save" })
 -- map("n", "<leader>q", "<cmd>q!<CR>", { desc = "Quit" })
 map("n", "<leader>h", "<cmd>nohlsearch<CR>", { desc = "No Highlight" })
 map("n", "<leader>ff", "<cmd>Telescope find_files<CR>", { desc = "Find files" })
+map(
+  "n",
+  "<leader>fr",
+  ":lua require('telescope.builtin').oldfiles({ cwd = vim.fn.getcwd(), cwd_only = true })<CR>",
+  { desc = "Find files" }
+)
 
 -- Git Mappings
 -- map("n", "<leader>g", nil, { group = "Git" })
@@ -65,9 +78,10 @@ map("n", "<leader>sr", "<cmd>Telescope oldfiles<cr>", { desc = "Open Recent File
 map("n", "<leader>sR", "<cmd>Telescope registers<cr>", { desc = "Registers" })
 map("n", "<leader>sk", "<cmd>Telescope keymaps<cr>", { desc = "Keymaps" })
 map("n", "<leader>sC", "<cmd>Telescope commands<cr>", { desc = "Commands" })
+map("n", "<leader>ss", "<cmd>Telescope live_grep<cr>", { desc = "Live Grep" })
 -- map("n", "<leader>ss", "<cmd>IncRename<cr>", { desc = "Rename" })
 map("n", "<F2>", function()
-  return ":IncRename " .. vim.fn.expand("<cword>")
+  return ":IncRename " .. vim.fn.expand "<cword>"
 end, { expr = true, desc = "Rename" })
 
 -- Run Mappings

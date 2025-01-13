@@ -1,58 +1,32 @@
+local fn = vim.fn
 -- Helper function to detect if the project is a Django project
-local function is_django_project()
-  local is_django = false
-  -- Check for the presence of manage.py in the current directory or any parent directory
-  local current_dir = vim.fn.getcwd()
-  while current_dir ~= "/" do
-    if vim.fn.glob(current_dir .. "/manage.py") ~= "" then
-      is_django = true
-      break
+local function get_html_formatter()
+  local dir = fn.getcwd()
+  while dir ~= "/" do
+    if fn.glob(dir .. "/manage.py") ~= "" then
+      return { "djlint" }
     end
-    current_dir = vim.fn.fnamemodify(current_dir, ":h")
+    dir = fn.fnamemodify(dir, ":h")
   end
-  return is_django
+  return { "prettier" }
 end
-
 require("conform").setup {
   -- Map of filetype to formatters
   formatters_by_ft = {
     lua = { "stylua" },
-    go = { "goimports", "gofmt" },
-    rust = { "rustfmt", lsp_format = "fallback" },
-    python = function(bufnr)
-      if require("conform").get_formatter_info("ruff_format", bufnr).available then
-        return { "ruff_format" }
-      else
-        return { "isort", "black" }
-      end
-    end,
-    html = function()
-      -- Check if we're in a Django project
-      if is_django_project() then
-        return { "djlint" }
-      else
-        return { "prettier" }
-      end
-    end,
+    go = { "goimports" },
+    rust = { "rustfmt" },
+    python = { "ruff" },
+    -- htmldjango = { "djlint" },
+    html = get_html_formatter(),
     -- Fallback for all other filetypes
     ["*"] = { "codespell" },
     ["_"] = { "trim_whitespace" },
   },
-
-  -- Default format options
-  default_format_opts = {
-    lsp_format = "fallback",
-  },
-
   -- Format on save configuration
   format_on_save = {
     lsp_format = "fallback",
     timeout_ms = 500,
-  },
-
-  -- Format after save configuration
-  format_after_save = {
-    lsp_format = "fallback",
   },
 
   -- Log level and notifications
@@ -60,3 +34,10 @@ require("conform").setup {
   notify_on_error = true,
   notify_no_formatters = true,
 }
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*",
+  callback = function(args)
+    require("conform").format { bufnr = args.buf }
+  end,
+})

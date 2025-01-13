@@ -22,7 +22,7 @@ return {
 
   {
     "smjonas/inc-rename.nvim",
-    event="VeryLazy",
+    event = "VeryLazy",
     config = function()
       require("inc_rename").setup {}
     end,
@@ -208,13 +208,13 @@ return {
     end,
   },
 
-  {
-    "mfussenegger/nvim-lint",
-    lazy = "VeryLazy",
-    config = function()
-      require "configs.lint"
-    end,
-  },
+  -- {
+  --   "mfussenegger/nvim-lint",
+  --   lazy = "VeryLazy",
+  --   config = function()
+  --     require "configs.nvim-lint"
+  --   end,
+  -- },
 
   {
     "nvim-treesitter/nvim-treesitter",
@@ -443,4 +443,14 @@ return {
   { "nvzone/volt", lazy = true },
   { "nvzone/menu", lazy = true },
 
+  {
+    "kawre/leetcode.nvim",
+    build = ":TSUpdate html", -- if you have `nvim-treesitter` installed
+    dependencies = {
+      "nvim-telescope/telescope.nvim",
+      -- "ibhagwan/fzf-lua",
+      "nvim-lua/plenary.nvim",
+      "MunifTanjim/nui.nvim",
+    },
+  },
 }
