@@ -428,29 +428,32 @@ return {
     },
   },
 
-  {
-    "kiyoon/jupynium.nvim",
-    ft = "python",
-    build = "pip3 install --user .",
-    -- build = "conda run --no-capture-output -n jupynium pip install .",
-    -- enabled = vim.fn.isdirectory(vim.fn.expand "~/miniconda3/envs/jupynium"),
-    dependencies = {
-      "rcarriga/nvim-notify", -- optional
-      "stevearc/dressing.nvim", -- optional, UI for :JupyniumKernelSelect
-    },
-  },
+  -- {
+  --   "kiyoon/jupynium.nvim",
+  --   ft = "python",
+  --   build = "pip3 install --user .",
+  --   -- build = "conda run --no-capture-output -n jupynium pip install .",
+  --   -- enabled = vim.fn.isdirectory(vim.fn.expand "~/miniconda3/envs/jupynium"),
+  --   dependencies = {
+  --     "rcarriga/nvim-notify", -- optional
+  --     "stevearc/dressing.nvim", -- optional, UI for :JupyniumKernelSelect
+  --   },
+  -- },
 
   { "nvzone/volt", lazy = true },
   { "nvzone/menu", lazy = true },
 
   {
     "kawre/leetcode.nvim",
+    cmd = "Leet",
+    lang = "python3",
     build = ":TSUpdate html", -- if you have `nvim-treesitter` installed
     dependencies = {
-      "nvim-telescope/telescope.nvim",
-      -- "ibhagwan/fzf-lua",
-      "nvim-lua/plenary.nvim",
       "MunifTanjim/nui.nvim",
     },
+    opts = {},
+    -- plugins = {
+    --   non_standalone = true,
+    -- },
   },
 }

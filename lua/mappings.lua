@@ -114,6 +114,8 @@ map("n", "<leader>pp", "<cmd>Lazy profile<cr>", { desc = "Profile" })
 map("n", "<leader>pl", "<cmd>Lazy log<cr>", { desc = "Log" })
 map("n", "<leader>pd", "<cmd>Lazy debug<cr>", { desc = "Debug" })
 
+map("n", "<leader>lt", "<cmd>bufdo bd | Leet<CR>", { desc = "Open Leetcode" })
+
 -- Debug Mappings
 -- map("n", "<leader>d", nil, { group = "Debug" })
 map(

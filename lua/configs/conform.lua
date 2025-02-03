@@ -10,17 +10,18 @@ local function get_html_formatter()
   end
   return { "prettier" }
 end
+
 require("conform").setup {
   -- Map of filetype to formatters
   formatters_by_ft = {
     lua = { "stylua" },
     go = { "goimports" },
     rust = { "rustfmt" },
-    python = { "ruff" },
+    python = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
     -- htmldjango = { "djlint" },
     html = get_html_formatter(),
     -- Fallback for all other filetypes
-    ["*"] = { "codespell" },
+    -- ["*"] = { "codespell" },
     ["_"] = { "trim_whitespace" },
   },
   -- Format on save configuration
@@ -34,10 +35,3 @@ require("conform").setup {
   notify_on_error = true,
   notify_no_formatters = true,
 }
-
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "*",
-  callback = function(args)
-    require("conform").format { bufnr = args.buf }
-  end,
-})

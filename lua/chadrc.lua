@@ -6,7 +6,7 @@
 local M = {}
 
 M.base46 = {
-  theme = "chadracula-evondev",
+  theme = "gatekeeper",
   transparency = true,
   lsp_semantic_tokens = true,
 
@@ -22,7 +22,7 @@ M.nvdash = {
     { txt = "󰋚 Recent Files", keys = "r", cmd = "Telescope oldfiles" },
     { txt = "󰙅 File Browser", keys = "e", cmd = "NvimTreeToggle" },
     { txt = "󰈞 Find File", keys = "f", cmd = "Telescope find_files" },
-    { txt = "󰈔 New File", keys = "n", cmd = "enew" },
+    { txt = "󰈔 New File", keys = "n", cmd = "new" },
     { txt = "󰞋 Search Help", keys = "h", cmd = "Telescope help_tags" },
     {
       txt = "󱁻 Config",
