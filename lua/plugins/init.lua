@@ -456,4 +456,32 @@ return {
     --   non_standalone = true,
     -- },
   },
+  {
+    "3rd/image.nvim",
+    opts = {},
+  },
+  {
+    "kyazdani42/nvim-tree.lua",
+    opts = {
+      git = {
+        ignore = false,
+      },
+    },
+  },
+  {
+    "NvChad/nvim-colorizer.lua",
+    config = function()
+      require("colorizer").setup {
+        filetypes = { "*" },
+        user_default_options = {
+          names = false, -- Disable color names like "red"
+          rgb_fn = true, -- Enable parsing `rgb(...)` and `rgba(...)`
+          tailwind = false,
+          mode = "foreground", -- Set to "background" if you prefer
+          RRGGBBAA = true,
+          AARRGGBB = true,
+        },
+      }
+    end,
+  },
 }

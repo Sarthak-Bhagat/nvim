@@ -121,7 +121,7 @@ map("n", "<leader>lt", "<cmd>bufdo bd | Leet<CR>", { desc = "Open Leetcode" })
 map(
   "n",
   "<leader>dt",
-  ":lua vim.g.neovide_transparency = (vim.g.neovide_transparency == 0.75 and 1 or 0.75)<CR>",
+  ":lua vim.g.neovide_opacity = (vim.g.neovide_opacity == 0.75 and 1 or 0.75)<CR>",
   { desc = "Toggle transparency" }
 )
 map("n", "<leader>da", ":lua require('menu').open('default')<cr>", { desc = "Open Menu" })
@@ -134,4 +134,7 @@ map(
   { desc = "Comment Block" }
 )
 
+map("n", "<leader>cp", function()
+  require("custom.color_preview").toggle_color_preview()
+end, { desc = "Toggle RGB Color Preview" })
 -- Menu

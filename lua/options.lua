@@ -12,6 +12,7 @@ opt.relativenumber = true
 
 opt.termguicolors = true
 o.foldcolumn = "0"
+o.shell = "/usr/bin/fish"
 
 o.autochdir = true
 api.nvim_create_autocmd("FileType", {
@@ -30,7 +31,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 
 if g.neovide then
   -- Put anything you want to happen only in Neovide here
-  g.neovide_transparency = 0.75
+  g.neovide_opacity = 0.75
   g.neovide_hide_mouse_when_typing = true
   -- vim.g.neovide_fullscreen = true
   g.neovide_cursor_antialiasing = true
