@@ -34,7 +34,6 @@ return {
     lazy = true,
     dependencies = {
       "MunifTanjim/nui.nvim",
-      "rcarriga/nvim-notify",
     },
     event = { "BufRead", "BufnewFile", "BufReadPre" },
     opts = {
@@ -124,36 +123,23 @@ return {
       require("nvim-surround").setup {}
     end,
   },
+  -- snacks.nvim, only these modules (#51). toggle and bufdelete are libraries the keymaps
+  -- call as Snacks.toggle and Snacks.bufdelete; they need no setup here.
   {
-
-    "echasnovski/mini.indentscope",
-    event = { "BufReadPre", "BufNewFile" },
-    lazy = true,
+    "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
     opts = {
-      symbol = "│",
-      options = { try_as_border = true },
+      bigfile = { enabled = true }, -- heavy features off on huge files
+      quickfile = { enabled = true }, -- draw the file before plugins finish loading
+      indent = { enabled = true }, -- guides and scope; replaces indent-blankline and mini.indentscope
+      words = { enabled = true }, -- highlight the symbol's other uses; ]] and [[ jump between them
+      notifier = { enabled = true }, -- noice draws notifications through it; replaces nvim-notify
     },
-    init = function()
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = {
-          "help",
-          "alpha",
-          "dashboard",
-          "nvim-tree",
-          "Trouble",
-          "trouble",
-          "lazy",
-          "mason",
-          "notify",
-          "toggleterm",
-          "lazyterm",
-        },
-        callback = function()
-          vim.b.miniindentscope_disable = true
-        end,
-      })
-    end,
   },
+
+  -- NvChad's indent guides; snacks' indent replaces them.
+  { "lukas-reineke/indent-blankline.nvim", enabled = false },
 
   {
     "folke/trouble.nvim",
