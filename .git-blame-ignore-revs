@@ -1,0 +1,3 @@
+# Formatting-only commits, skipped by git blame (git config blame.ignoreRevsFile .git-blame-ignore-revs).
+# stylua, once, for the files that were not formatted
+09cc40fe65848d6daeb35dd320ab03f50fb94ec3
