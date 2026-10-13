@@ -1,6 +1,9 @@
 return {
   defaults = { lazy = true },
   install = { colorscheme = { "nvchad" } },
+  -- No plugin needs a compiled rock: the rockspecs some ship are for publishing. image.nvim
+  -- was the only rock user, and it is gone, along with the hererocks it pulled in.
+  rocks = { enabled = false },
 
   ui = {
     icons = {

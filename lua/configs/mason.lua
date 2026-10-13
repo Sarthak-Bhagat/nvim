@@ -11,6 +11,7 @@ local wanted = {
   "ty",
   "djlint",
   "stylua",
+  "prettier", -- conform's formatter for plain HTML
   "tree-sitter-cli", -- nvim-treesitter's main branch builds parsers with it
 }
 

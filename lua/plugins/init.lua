@@ -226,6 +226,9 @@ return {
         "dockerfile",
         "toml",
         "fish",
+        -- noice highlights the command line with these
+        "regex",
+        "bash",
       },
       -- Ignored since nvim-treesitter moved to its main branch: a parser not listed
       -- above is not installed on demand. Add it here and run :TSInstallAll.
