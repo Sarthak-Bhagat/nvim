@@ -104,10 +104,14 @@ return {
       })
     end,
   },
+  -- Smart edit: a file he cannot write opens through sudo, so :w asks for the password.
+  -- The flag must be set before plugin/suda.vim is sourced (init, not config), and the
+  -- plugin must load before the first file is read (not VeryLazy). Both were wrong, so
+  -- smart edit never armed.
   {
     "lambdalisue/vim-suda",
-    event = "VeryLazy",
-    config = function()
+    lazy = false,
+    init = function()
       vim.g.suda_smart_edit = 1
     end,
   },
