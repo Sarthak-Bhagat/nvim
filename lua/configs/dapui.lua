@@ -1,4 +1,4 @@
-local dap, dapui = require("dap").init, require "dapui"
+local dapui = require "dapui"
 
 local dap_status_ok, dap = pcall(require, "dap")
 if not dap_status_ok then
