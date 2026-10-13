@@ -168,13 +168,21 @@ return {
     end,
   },
 
+  -- Telescope's extensions load with Telescope itself. live_grep_args had its own spec
+  -- with `lazy = "VeryLazy"` and no trigger, so it never loaded; NvChad's
+  -- extensions_list is not read by anything any more.
   {
-    "nvim-telescope/telescope-live-grep-args.nvim",
-    enabled = true,
-    lazy = "VeryLazy",
-    dependencies = { "nvim-telescope/telescope.nvim" },
-    config = function()
-      require("telescope").load_extension "live_grep_args"
+    "nvim-telescope/telescope.nvim",
+    dependencies = {
+      { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+      "nvim-telescope/telescope-live-grep-args.nvim",
+    },
+    config = function(_, opts)
+      local telescope = require "telescope"
+      telescope.setup(opts)
+      for _, ext in ipairs { "fzf", "live_grep_args" } do
+        telescope.load_extension(ext)
+      end
     end,
   },
 
