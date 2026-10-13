@@ -46,7 +46,6 @@ return {
         override = {
           ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
           ["vim.lsp.util.stylize_markdown"] = true,
-          ["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
         },
       },
       presets = {
@@ -89,18 +88,19 @@ return {
     },
   },
 
+  -- Completion: blink.cmp through NvChad's own spec, which also disables nvim-cmp.
+  { import = "nvchad.blink.lazyspec" },
   {
-    "hrsh7th/nvim-cmp",
+    "saghen/blink.cmp",
     opts = function(_, opts)
-      opts.sources = opts.sources or {}
-      table.insert(opts.sources, {
-        name = "lazydev",
-        group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+      -- lazydev's completions for Neovim's Lua API, ahead of the LSP's, in Lua files only.
+      opts.sources.per_filetype = { lua = { inherit_defaults = true, "lazydev" } }
+      opts.sources.providers = vim.tbl_extend("force", opts.sources.providers or {}, {
+        lazydev = { name = "LazyDev", module = "lazydev.integrations.blink", score_offset = 100 },
       })
-      table.insert(opts.sources, {
-        name = "supermaven",
-        group_index = 1,
-      })
+      -- <C-y> is Supermaven's accept-word; <CR> already accepts the highlighted item.
+      opts.keymap["<C-y>"] = false
+      return opts
     end,
   },
   -- Smart edit: a file he cannot write opens through sudo, so :w asks for the password.
