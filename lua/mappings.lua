@@ -54,19 +54,40 @@ map("n", "<leader>gd", "<cmd>Gitsigns diffthis HEAD<cr>", { desc = "Diff" })
 
 -- LSP Mappings
 -- map("n", "<leader>l", nil, { group = "LSP" })
-map("n", "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", { desc = "Code Action" })
+-- Names the kinds it wants, so ruff's whole-file actions are listed here; the lightbulb,
+-- which names none, does not get them (configs.lspconfig).
+map("n", "<leader>la", function()
+  vim.lsp.buf.code_action { context = { only = { "quickfix", "refactor", "source" } } }
+end, { desc = "Code Action" })
 map("n", "<leader>ld", "<cmd>Telescope diagnostics bufnr=0<cr>", { desc = "Document Diagnostics" })
 map("n", "<leader>lw", "<cmd>Telescope diagnostics<cr>", { desc = "Workspace Diagnostics" })
-map("n", "<leader>lf", "<cmd>lua vim.lsp.buf.format{async=true}<cr>", { desc = "Format" })
+-- Through conform, not the LSP, so a hand-formatted repo is not reformatted (configs.conform).
+map("n", "<leader>lf", function()
+  require("conform").format { async = true, lsp_format = "fallback" }
+end, { desc = "Format" })
 map("n", "<leader>li", "<cmd>LspInfo<cr>", { desc = "Info" })
 map("n", "<leader>lI", "<cmd>Mason<cr>", { desc = "Installer Info" })
-map("n", "<leader>lj", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", { desc = "Next Diagnostic" })
-map("n", "<leader>lk", "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>", { desc = "Prev Diagnostic" })
+-- vim.lsp.diagnostic.goto_next/prev are gone in nvim 0.12; these keys errored.
+map("n", "<leader>lj", function()
+  vim.diagnostic.jump { count = 1, float = true }
+end, { desc = "Next Diagnostic" })
+map("n", "<leader>lk", function()
+  vim.diagnostic.jump { count = -1, float = true }
+end, { desc = "Prev Diagnostic" })
 map("n", "<leader>ll", "<cmd>lua vim.lsp.codelens.run()<cr>", { desc = "CodeLens Action" })
 map("n", "<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<cr>", { desc = "Quickfix" })
 map("n", "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>", { desc = "Rename" })
 map("n", "<leader>ls", "<cmd>Telescope lsp_document_symbols<cr>", { desc = "Document Symbols" })
 map("n", "<leader>lS", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", { desc = "Workspace Symbols" })
+
+-- Trouble Mappings, laid out as LunarVim had them. NvChad's <leader>th (themes) shares the group.
+map("n", "<leader>tt", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Workspace Diagnostics" })
+map("n", "<leader>td", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", { desc = "Document Diagnostics" })
+map("n", "<leader>tr", "<cmd>Trouble lsp_references toggle<cr>", { desc = "References" })
+map("n", "<leader>tf", "<cmd>Trouble lsp_definitions toggle<cr>", { desc = "Definitions" })
+map("n", "<leader>ts", "<cmd>Trouble symbols toggle focus=false<cr>", { desc = "Symbols" })
+map("n", "<leader>tq", "<cmd>Trouble qflist toggle<cr>", { desc = "Quickfix" })
+map("n", "<leader>tl", "<cmd>Trouble loclist toggle<cr>", { desc = "Location List" })
 
 -- Search Mappings
 -- map("n", "<leader>s", nil, { group = "Search" })

@@ -41,6 +41,7 @@ local mappings = {
   { "<leader>g", group = "Git" },
   { "<leader>l", group = "LSP" },
   { "<leader>s", group = "Search" },
+  { "<leader>t", group = "Trouble" },
   { "<leader>r", group = "Run" },
   { "<leader>d", group = "Debug" },
   { "<leader>p", group = "Plugins(Lazy)" },
