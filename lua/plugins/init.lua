@@ -324,16 +324,12 @@ return {
     end,
   },
 
+  -- The maintained fork: the original (ahmedkhalf, untouched since 2024) calls
+  -- vim.lsp.buf_get_clients(), which nvim 0.12 removed. The module is `project` now.
   {
-    "ahmedkhalf/project.nvim",
+    "DrKJeff16/project.nvim",
     event = "VeryLazy",
-    config = function()
-      require("project_nvim").setup {
-        -- your configuration comes here
-        -- or leave it empty to use the default settings
-        -- refer to the configuration section below
-      }
-    end,
+    opts = {},
   },
 
   {
