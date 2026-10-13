@@ -47,6 +47,7 @@ fast-forward merged into `main` when done, then the branch is deleted.
 | | `fm` | Marks |
 | | `fR` | Registers |
 | | `fM` | Man pages |
+| | `fp` | Projects: his main projects plus history (project.nvim's Telescope picker); added 10-13 when project.nvim got its project list |
 | **g Git** | `gg` | Lazygit, through lazygit.nvim (`:LazyGit`), not a toggleterm float: his call at review |
 | | `gj` / `g<Down>` | Next hunk (gitsigns `nav_hunk("next")`) |
 | | `gk` / `g<Up>` | Previous hunk (`nav_hunk("prev")`) |

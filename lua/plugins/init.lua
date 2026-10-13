@@ -338,7 +338,24 @@ return {
   {
     "DrKJeff16/project.nvim",
     event = "VeryLazy",
-    opts = {},
+    opts = function()
+      return require "configs.project"
+    end,
+    config = function(_, opts)
+      require("project").setup(opts)
+      -- The picker lists history plus this session's projects, so a main project not
+      -- visited lately would be missing. Add any that are to this session's list; the
+      -- plugin saves the session into history on exit like any visited project.
+      local session = require("project.util").history.get_session_projects()
+      for _, p in ipairs(opts.custom_projects) do
+        local listed = vim.tbl_contains(session, function(v)
+          return v.path == p.path
+        end, { predicate = true })
+        if not listed then
+          table.insert(session, { path = p.path, name = p.name })
+        end
+      end
+    end,
   },
 
   {
