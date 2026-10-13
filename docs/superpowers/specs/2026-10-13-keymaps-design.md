@@ -47,7 +47,7 @@ fast-forward merged into `main` when done, then the branch is deleted.
 | | `fm` | Marks |
 | | `fR` | Registers |
 | | `fM` | Man pages |
-| **g Git** | `gg` | Lazygit in a toggleterm float, as now |
+| **g Git** | `gg` | Lazygit, through lazygit.nvim (`:LazyGit`), not a toggleterm float: his call at review |
 | | `gj` / `g<Down>` | Next hunk (gitsigns `nav_hunk("next")`) |
 | | `gk` / `g<Up>` | Previous hunk (`nav_hunk("prev")`) |
 | | `gp` | Preview hunk |
@@ -148,8 +148,8 @@ changed.
    first file is read. Today the flag is set in `config`, after `plugin/suda.vim` has already
    checked it, so smart edit never arms. The result: a file he cannot write reopens through sudo,
    and `:wq` asks for his password.
-3. **Dead code out:** the removed keys above. The `_LAZYGIT_TOGGLE` global becomes a local
-   function, since only `gg` calls it.
+3. **Dead code out:** the removed keys above, and the `_LAZYGIT_TOGGLE` global, which `gg` no
+   longer needs.
 
 ## Testing
 
@@ -170,4 +170,3 @@ Then he uses it for real. Headless cannot show which-key's popup as he will see 
 
 - DAP: a board task of its own; `d` is reserved for it.
 - kitty's shortcuts.
-- lazygit.nvim is installed but unused, since `gg` keeps the toggleterm float. Left alone.
