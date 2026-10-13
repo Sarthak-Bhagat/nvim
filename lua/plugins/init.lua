@@ -365,8 +365,17 @@ return {
   -- The maintained fork: the original (ahmedkhalf, untouched since 2024) calls
   -- vim.lsp.buf_get_clients(), which nvim 0.12 removed. The module is `project` now.
   {
+    "xieyonn/spinner.nvim",
+    event = "LspAttach",
+    config = function()
+      require "configs.spinner"
+    end,
+  },
+
+  {
     "DrKJeff16/project.nvim",
     event = "VeryLazy",
+    dependencies = { "xieyonn/spinner.nvim" },
     opts = function()
       return require "configs.project"
     end,

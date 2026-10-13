@@ -5,6 +5,7 @@ local git = "/mnt/Secondary/Documents/git/"
 local config = vim.fn.expand "~/.config/"
 
 return {
+  spinner = { enabled = true, kind = "cursor" }, -- spinner.nvim, while it finds a root
   custom_projects = {
     { path = git .. "urd", name = "urd" },
     { path = git .. "scrobd", name = "scrobd" },
