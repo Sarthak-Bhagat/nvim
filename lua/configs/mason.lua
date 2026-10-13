@@ -1,10 +1,25 @@
 require("mason").setup()
+-- Every server Mason has installed is enabled (automatic_enable defaults to true).
 require("mason-lspconfig").setup()
 
--- require("mason-lspconfig").setup_handlers {
---   function(server_name) -- default handler (optional)
---     require("lspconfig")[server_name].setup {}
---   end,
--- }
--- -- require("mason-nvim-lint").setup()
--- -- require("mason-conform").setup()
+-- Declared here, so a wiped ~/.local/share/nvim/mason heals itself on the next start
+-- instead of leaving every buffer silently without a server, as it had since Feb 2026.
+-- A project's own .venv copy still wins for ruff, ty and djlint (see configs.lspconfig).
+local wanted = {
+  "lua-language-server",
+  "ruff",
+  "ty",
+  "djlint",
+  "stylua",
+  "tree-sitter-cli", -- nvim-treesitter's main branch builds parsers with it
+}
+
+local registry = require "mason-registry"
+registry.refresh(function()
+  for _, name in ipairs(wanted) do
+    local ok, pkg = pcall(registry.get_package, name)
+    if ok and not pkg:is_installed() then
+      pkg:install()
+    end
+  end
+end)

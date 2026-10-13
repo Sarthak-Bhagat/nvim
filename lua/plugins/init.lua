@@ -152,24 +152,6 @@ return {
   },
 
   {
-    "linux-cultist/venv-selector.nvim",
-    dependencies = {
-      "neovim/nvim-lspconfig",
-      "mfussenegger/nvim-dap",
-      "mfussenegger/nvim-dap-python", --optional
-      { "nvim-telescope/telescope.nvim", branch = "0.1.x", dependencies = { "nvim-lua/plenary.nvim" } },
-    },
-    lazy = false,
-    branch = "regexp", -- This is the regexp branch, use this for the new version
-    config = function()
-      require("venv-selector").setup()
-    end,
-    keys = {
-      { ",", "<cmd>VenvSelect<cr>" },
-    },
-  },
-
-  {
     "folke/trouble.nvim",
     cmd = "Trouble",
     opts = {},
@@ -208,13 +190,13 @@ return {
     end,
   },
 
-  -- {
-  --   "mfussenegger/nvim-lint",
-  --   lazy = "VeryLazy",
-  --   config = function()
-  --     require "configs.nvim-lint"
-  --   end,
-  -- },
+  {
+    "mfussenegger/nvim-lint",
+    event = { "BufReadPost", "BufWritePost" },
+    config = function()
+      require "configs.nvim-lint"
+    end,
+  },
 
   {
     "nvim-treesitter/nvim-treesitter",
@@ -228,7 +210,19 @@ return {
         "java",
         "kotlin",
         "rust",
+        -- urd and scrobd: python, Jinja templates, schema.sql, Dockerfile, pyproject
+        "python",
+        "html",
+        "htmldjango",
+        "jinja",
+        "jinja_inline",
+        "sql",
+        "dockerfile",
+        "toml",
+        "fish",
       },
+      -- Ignored since nvim-treesitter moved to its main branch: a parser not listed
+      -- above is not installed on demand. Add it here and run :TSInstallAll.
       auto_install = true,
     },
   },
