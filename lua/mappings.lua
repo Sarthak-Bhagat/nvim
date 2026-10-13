@@ -156,6 +156,6 @@ map(
 )
 
 map("n", "<leader>cp", function()
-  require("custom.color_preview").toggle_color_preview()
-end, { desc = "Toggle RGB Color Preview" })
+  require("mini.hipatterns").toggle(0)
+end, { desc = "Toggle Color Preview" })
 -- Menu

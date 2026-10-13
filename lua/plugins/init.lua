@@ -182,6 +182,14 @@ return {
   },
 
   {
+    "nvim-mini/mini.hipatterns",
+    event = { "BufReadPost", "BufNewFile" },
+    opts = function()
+      return require "configs.hipatterns"
+    end,
+  },
+
+  {
     "nvim-mini/mini.animate",
     lazy = "VeryLazy",
     event = "BufRead",
