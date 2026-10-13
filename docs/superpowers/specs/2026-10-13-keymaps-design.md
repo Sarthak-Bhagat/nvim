@@ -110,6 +110,7 @@ NvChad's map file declared these; they are declared again here, with the same be
 | Insert | `<C-b>` / `<C-e>` | Start / end of line |
 | Insert | `<C-h/j/k/l>` | Move the cursor (plain arrows already do this, so no twin) |
 | Normal | `F2` | Rename, with a live preview (inc-rename) |
+| Insert | `<A-S-e>` / `<C-y>` | Accept the local model's suggestion, whole / one word (llama.vim; Supermaven's keys, added 10-13) |
 
 Unchanged because nothing here declares them: nvim's built-ins (rule 5, plus `gc`), flash's
 `s`/`S`/`r`/`R`, surround's `ys`/`ds`/`cs`, and ufo's folds.

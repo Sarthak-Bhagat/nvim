@@ -73,8 +73,37 @@ return {
     },
   },
 
+  -- Inline completion from a local model: llama-server (a systemd user unit,
+  -- ~/.config/systemd/user/llama-server.service) serves Qwen2.5-Coder 3B on the GPU.
+  -- Free, no limits, nothing leaves the machine. Keys are Supermaven's, so muscle memory
+  -- carries over; instruction editing and every <leader>ll default are switched off.
+  {
+    "ggml-org/llama.vim",
+    event = "InsertEnter",
+    init = function()
+      vim.g.llama_config = {
+        show_info = 0,
+        t_max_predict_ms = 500,
+        keymap_fim_accept_full = "<A-S-e>",
+        keymap_fim_accept_word = "<C-y>",
+        keymap_fim_accept_line = "",
+        keymap_fim_trigger = "",
+        keymap_fim_next = "", -- default <C-l>/<C-h> are the insert-mode cursor moves
+        keymap_fim_prev = "",
+        keymap_debug_toggle = "",
+        keymap_inst_trigger = "",
+        keymap_inst_rerun = "",
+        keymap_inst_continue = "",
+        keymap_inst_accept = "",
+        keymap_inst_cancel = "",
+      }
+    end,
+  },
+
+  -- Off while llama.vim proves itself in daily use; flip `enabled` to go back.
   {
     "supermaven-inc/supermaven-nvim",
+    enabled = false,
     event = "LspAttach",
     opts = {
       keymaps = {
