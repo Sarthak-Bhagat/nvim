@@ -175,14 +175,14 @@ return {
   },
 
   {
-    "echasnovski/mini.icons",
+    "nvim-mini/mini.icons",
     config = function()
       require("mini.icons").setup { defaults = true }
     end,
   },
 
   {
-    "echasnovski/mini.animate",
+    "nvim-mini/mini.animate",
     lazy = "VeryLazy",
     event = "BufRead",
     config = function()
@@ -333,7 +333,7 @@ return {
   },
 
   {
-    "williamboman/mason-lspconfig.nvim",
+    "mason-org/mason-lspconfig.nvim",
     event = "VeryLazy",
     config = function()
       require "configs.mason"
@@ -341,9 +341,8 @@ return {
     end,
     dependencies = {
       "mfussenegger/nvim-lint",
-      "rshkarin/mason-nvim-lint",
       "neovim/nvim-lspconfig",
-      "williamboman/mason.nvim",
+      "mason-org/mason.nvim",
     },
   },
 
@@ -447,31 +446,11 @@ return {
     -- },
   },
   {
-    "3rd/image.nvim",
-    opts = {},
-  },
-  {
-    "kyazdani42/nvim-tree.lua",
+    "nvim-tree/nvim-tree.lua",
     opts = {
       git = {
         ignore = false,
       },
     },
-  },
-  {
-    "NvChad/nvim-colorizer.lua",
-    config = function()
-      require("colorizer").setup {
-        filetypes = { "*" },
-        user_default_options = {
-          names = false, -- Disable color names like "red"
-          rgb_fn = true, -- Enable parsing `rgb(...)` and `rgba(...)`
-          tailwind = false,
-          mode = "foreground", -- Set to "background" if you prefer
-          RRGGBBAA = true,
-          AARRGGBB = true,
-        },
-      }
-    end,
   },
 }
