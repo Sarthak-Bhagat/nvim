@@ -1,5 +1,14 @@
 -- load defaults i.e lua_lsp
-require("nvchad.configs.lspconfig").defaults()
+local nvlsp = require "nvchad.configs.lspconfig"
+nvlsp.defaults()
+
+-- NvChad's per-buffer LSP keys, trimmed to gd/gD (keymap design): its <leader>wa/wr/wl,
+-- <leader>D and <leader>ra are dropped, and nvim 0.12 has grt and grn built in.
+-- defaults()' LspAttach autocmd looks on_attach up at call time, so replacing it works.
+nvlsp.on_attach = function(_, bufnr)
+  vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr, desc = "Go to definition" })
+  vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = bufnr, desc = "Go to declaration" })
+end
 
 vim.diagnostic.config { virtual_text = false }
 

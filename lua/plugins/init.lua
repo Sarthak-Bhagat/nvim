@@ -76,27 +76,12 @@ return {
   -- Inline completion from a local model: llama-server (a systemd user unit,
   -- ~/.config/systemd/user/llama-server.service) serves Qwen2.5-Coder 3B on the GPU.
   -- Free, no limits, nothing leaves the machine. Keys are Supermaven's, so muscle memory
-  -- carries over; instruction editing and every <leader>ll default are switched off.
+  -- carries over. Accept/dismiss keys live in blink's keymap; see configs.llama.
   {
     "ggml-org/llama.vim",
     event = "InsertEnter",
     init = function()
-      vim.g.llama_config = {
-        show_info = 0,
-        t_max_predict_ms = 500,
-        keymap_fim_accept_full = "<A-S-e>",
-        keymap_fim_accept_word = "<C-y>",
-        keymap_fim_accept_line = "",
-        keymap_fim_trigger = "",
-        keymap_fim_next = "", -- default <C-l>/<C-h> are the insert-mode cursor moves
-        keymap_fim_prev = "",
-        keymap_debug_toggle = "",
-        keymap_inst_trigger = "",
-        keymap_inst_rerun = "",
-        keymap_inst_continue = "",
-        keymap_inst_accept = "",
-        keymap_inst_cancel = "",
-      }
+      vim.g.llama_config = require("configs.llama").config
     end,
   },
 
@@ -127,8 +112,14 @@ return {
       opts.sources.providers = vim.tbl_extend("force", opts.sources.providers or {}, {
         lazydev = { name = "LazyDev", module = "lazydev.integrations.blink", score_offset = 100 },
       })
-      -- <C-y> is Supermaven's accept-word; <CR> already accepts the highlighted item.
-      opts.keymap["<C-y>"] = false
+      -- The local model's suggestion (configs.llama): each acts only while one is showing,
+      -- otherwise the key does what it did before. <A-S-e>, <C-y> and <C-x> were Supermaven's.
+      local llama = require "configs.llama"
+      opts.keymap["<A-S-e>"] = { llama.action "full", "fallback" }
+      opts.keymap["<C-y>"] = { llama.action "word", "fallback" }
+      opts.keymap["<C-x>"] = { llama.action "hide", "fallback" }
+      opts.keymap["<Tab>"] = { "select_next", "snippet_forward", llama.action "full", "fallback" }
+      opts.keymap["<S-Tab>"] = { "select_prev", "snippet_backward", llama.action "line", "fallback" }
       return opts
     end,
   },
@@ -351,15 +342,6 @@ return {
     "folke/which-key.nvim",
     event = "VeryLazy",
     config = require "configs.whichkey",
-  },
-
-  {
-    "akinsho/toggleterm.nvim",
-    lazy = "VeryLazy",
-    cmd = "ToggleTerm",
-    config = function()
-      require "configs.toggleterm"
-    end,
   },
 
   -- The maintained fork: the original (ahmedkhalf, untouched since 2024) calls

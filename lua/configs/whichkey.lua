@@ -37,14 +37,5 @@ local setup = {
   --     v = { "j", "k" },
   -- },
 }
-local mappings = {
-  { "<leader>g", group = "Git" },
-  { "<leader>l", group = "LSP" },
-  { "<leader>s", group = "Search" },
-  { "<leader>t", group = "Trouble" },
-  { "<leader>r", group = "Run" },
-  { "<leader>d", group = "Debug" },
-  { "<leader>p", group = "Plugins(Lazy)" },
-}
+-- The groups and every key are in lua/mappings.lua.
 which_key.setup(setup)
-which_key.add(mappings)

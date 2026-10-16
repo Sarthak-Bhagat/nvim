@@ -82,6 +82,7 @@ fast-forward merged into `main` when done, then the branch is deleted.
 | | `uc` | Toggle colour preview in this buffer (mini.hipatterns, below) |
 | | `uh` | Theme picker |
 | | `uw` | Toggle word wrap |
+| | `ua` | Toggle AI suggestions (llama.vim, the local model); shows its on/off state |
 | | `um` | NvChad menu |
 | **o Open** | `ol` | Lazy |
 | | `om` | Mason |
@@ -91,6 +92,7 @@ fast-forward merged into `main` when done, then the branch is deleted.
 | | `on` | Notification history (Noice) |
 | | `ot` | Hidden-terminal picker (Telescope terms) |
 | | `ok` | Every keymap (which-key) |
+| | `oa` | AI suggestion server status (`:LlamaStatus`) |
 | **z Fun** | `zl` | Leetcode: closes all buffers, then `:Leet`, as now |
 | **d Debug** | — | Reserved. No keys until DAP is set up, which is a separate board task; which-key hides an empty group |
 
@@ -102,6 +104,7 @@ NvChad's map file declared these; they are declared again here, with the same be
 |---|---|---|
 | Normal | `<Esc>` | Clear search highlight |
 | Normal | `<C-s>` | Save |
+| Normal | `<C-n>` | Explorer (same as `e`) |
 | Normal | `<C-c>` | Copy the whole file |
 | Normal | `<C-h/j/k/l>`, `<C-S-Left/Down/Up/Right>` | Move between windows |
 | Normal | `<Tab>` / `<S-Tab>` | Next / previous buffer |
@@ -110,8 +113,14 @@ NvChad's map file declared these; they are declared again here, with the same be
 | Insert | `<C-b>` / `<C-e>` | Start / end of line |
 | Insert | `<C-h/j/k/l>` | Move the cursor (plain arrows already do this, so no twin) |
 | Normal | `F2` | Rename, with a live preview (inc-rename) |
-| Insert | `<A-S-e>` / `<C-y>` | Accept the local model's suggestion, whole / one word (llama.vim; Supermaven's keys, added 10-13) |
+| Insert | `<A-S-e>` / `<C-y>` | Accept the local model's suggestion, whole / one word (llama.vim; Supermaven's keys) |
+| Insert | `<C-x>` | Dismiss the suggestion |
+| Insert | `<Tab>` / `<S-Tab>` | Blink's menu or snippet jump first; with neither, accept the suggestion whole / one line |
 
+All the insert-mode suggestion keys live in blink's keymap (`plugins/init.lua`), each a command
+chain that ends in `fallback`, so they only act while a suggestion is showing. They call
+`configs/llama.lua`, which defers the edit with `vim.schedule`: blink maps with `expr = true`,
+which holds textlock, and `llama#fim_accept` silently fails to edit inside it.
 Unchanged because nothing here declares them: nvim's built-ins (rule 5, plus `gc`), flash's
 `s`/`S`/`r`/`R`, surround's `ys`/`ds`/`cs`, and ufo's folds.
 
