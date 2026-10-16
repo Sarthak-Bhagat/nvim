@@ -17,6 +17,17 @@ local function gitsigns(action, ...)
   end
 end
 
+-- nvim-dap's functions by name, e.g. dap "continue" or dap "repl.toggle"
+local function dap(path)
+  return function()
+    local fn = require "dap"
+    for part in path:gmatch "[^.]+" do
+      fn = fn[part]
+    end
+    fn()
+  end
+end
+
 local function term(opts)
   return function()
     require("nvchad.term").toggle(opts)
@@ -177,8 +188,46 @@ wk.add {
   { "<leader>z", group = "Fun" },
   { "<leader>zl", "<cmd>bufdo bd | Leet<cr>", desc = "Leetcode" },
 
-  -- d Debug: reserved for DAP (board #50); which-key hides it while it is empty
+  -- d Debug (nvim-dap; the Python adapter loads with the first Python buffer)
   { "<leader>d", group = "Debug" },
+  { "<leader>dc", dap "continue", desc = "Start / continue" },
+  { "<leader>db", dap "toggle_breakpoint", desc = "Toggle breakpoint" },
+  {
+    "<leader>dB",
+    function()
+      require("dap").set_breakpoint(vim.fn.input "Break when: ")
+    end,
+    desc = "Conditional breakpoint",
+  },
+  { "<leader>dn", dap "step_over", desc = "Step over (next)" },
+  { "<leader>di", dap "step_into", desc = "Step into" },
+  { "<leader>do", dap "step_out", desc = "Step out" },
+  { "<leader>dC", dap "run_to_cursor", desc = "Run to cursor" },
+  { "<leader>dl", dap "run_last", desc = "Run the last session again" },
+  { "<leader>dr", dap "repl.toggle", desc = "REPL" },
+  { "<leader>dx", dap "terminate", desc = "Stop" },
+  {
+    "<leader>de",
+    function()
+      require("dapui").eval()
+    end,
+    desc = "Evaluate under cursor",
+    mode = { "n", "x" },
+  },
+  {
+    "<leader>du",
+    function()
+      require("dapui").toggle()
+    end,
+    desc = "Debug panels",
+  },
+  {
+    "<leader>dt",
+    function()
+      require("dap-python").test_method()
+    end,
+    desc = "Debug the test under the cursor",
+  },
 }
 
 -- u UI toggles: Snacks toggles, so which-key shows whether each is on

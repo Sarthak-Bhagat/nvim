@@ -94,7 +94,16 @@ fast-forward merged into `main` when done, then the branch is deleted.
 | | `ok` | Every keymap (which-key) |
 | | `oa` | AI suggestion server status (`:LlamaStatus`) |
 | **z Fun** | `zl` | Leetcode: closes all buffers, then `:Leet`, as now |
-| **d Debug** | — | Reserved. No keys until DAP is set up, which is a separate board task; which-key hides an empty group |
+| **d Debug** | `dc` | Start / continue |
+| | `db` / `dB` | Toggle breakpoint / conditional breakpoint |
+| | `dn` / `di` / `do` | Step over (next) / into / out |
+| | `dC` | Run to cursor |
+| | `dl` | Run the last session again |
+| | `dr` | REPL |
+| | `dx` | Stop |
+| | `de` | Evaluate under cursor (visual: the selection) |
+| | `du` | Toggle the debug panels (dap-ui) |
+| | `dt` | Debug the test under the cursor (Python) |
 
 ## Outside `<leader>`
 

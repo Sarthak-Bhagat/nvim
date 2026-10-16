@@ -274,6 +274,17 @@ return {
     end,
   },
 
+  -- Python debugging: the adapter is Mason's debugpy, the debuggee runs on the project's own
+  -- .venv (nvim-dap-python finds .venv/bin/python from the cwd). Keys are <leader>d.
+  {
+    "mfussenegger/nvim-dap-python",
+    ft = "python",
+    dependencies = { "mfussenegger/nvim-dap" },
+    config = function()
+      require("dap-python").setup "debugpy-adapter"
+    end,
+  },
+
   {
     "IogaMaster/neocord",
     event = "VeryLazy",

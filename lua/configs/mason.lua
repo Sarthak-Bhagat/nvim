@@ -13,6 +13,7 @@ local wanted = {
   "stylua",
   "prettier", -- conform's formatter for plain HTML
   "tree-sitter-cli", -- nvim-treesitter's main branch builds parsers with it
+  "debugpy", -- the Python debug adapter (nvim-dap-python, <leader>d)
 }
 
 local registry = require "mason-registry"
