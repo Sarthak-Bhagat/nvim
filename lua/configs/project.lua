@@ -8,7 +8,7 @@ return {
   spinner = { enabled = true, kind = "cursor" }, -- spinner.nvim, while it finds a root
   custom_projects = {
     { path = git .. "urd", name = "urd" },
-    { path = git .. "scrobd", name = "scrobd" },
+    { path = git .. "verdandi", name = "verdandi" },
     { path = git .. "mediactl", name = "mediactl" },
     { path = git .. "mpv-clipper", name = "mpv-clipper" },
     { path = git .. "dotfiles-public", name = "dotfiles-public" },
